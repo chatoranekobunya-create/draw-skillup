@@ -33,7 +33,6 @@ radial-gradient(circle at 80% 80%, rgba(14,165,233,0.06) 0%, transparent 50%);
 
 .mono { font-family: ‘Space Mono’, monospace; }
 
-/* Hero grid lines */
 .grid-bg {
 background-image:
 linear-gradient(rgba(13,148,136,0.07) 1px, transparent 1px),
@@ -41,92 +40,85 @@ linear-gradient(90deg, rgba(13,148,136,0.07) 1px, transparent 1px);
 background-size: 40px 40px;
 }
 
-/* Category radio cards */
+/* Category cards */
 .category-card {
 cursor: pointer;
 border: 2px solid var(–border);
 border-radius: 12px;
 padding: 14px 16px;
-transition: all 0.2s ease;
+transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
 background: white;
 display: flex;
 align-items: center;
 gap: 12px;
+-webkit-user-select: none;
 user-select: none;
 }
-.category-card:hover {
-border-color: var(–teal-light);
-background: #f0fdfa;
-transform: translateY(-1px);
-box-shadow: 0 4px 16px rgba(13,148,136,0.12);
-}
+.category-card:hover { border-color: var(–teal-light); background: #f0fdfa; }
 .category-card.selected {
 border-color: var(–teal);
 background: #f0fdfa;
-box-shadow: 0 0 0 3px rgba(13,148,136,0.15), 0 4px 16px rgba(13,148,136,0.15);
+box-shadow: 0 0 0 3px rgba(13,148,136,0.15);
 }
-.category-card input { display: none; }
 .radio-dot {
-width: 20px; height: 20px;
+width: 22px; height: 22px; min-width: 22px;
 border: 2px solid var(–border);
 border-radius: 50%;
-flex-shrink: 0;
 display: flex; align-items: center; justify-content: center;
 transition: all 0.2s;
-}
-.category-card.selected .radio-dot {
-border-color: var(–teal);
-background: var(–teal);
-}
-.radio-dot::after {
-content: ‘’;
-width: 8px; height: 8px;
-border-radius: 50%;
 background: white;
-opacity: 0;
-transition: opacity 0.2s;
 }
-.category-card.selected .radio-dot::after { opacity: 1; }
+.category-card.selected .radio-dot { border-color: var(–teal); background: var(–teal); }
+.radio-dot-inner {
+width: 9px; height: 9px;
+border-radius: 50%; background: white;
+opacity: 0; transition: opacity 0.2s;
+}
+.category-card.selected .radio-dot-inner { opacity: 1; }
+.cat-emoji { font-size: 1.3rem; line-height: 1; flex-shrink: 0; }
+.cat-label { font-size: 0.88rem; font-weight: 500; line-height: 1.3; }
 
-/* Main CTA button */
+/* CTA Button — Safari-safe */
 .cta-btn {
-background: linear-gradient(135deg, var(–teal) 0%, #0ea5e9 100%);
-color: white;
-border: none;
+display: block;
+width: 100%;
+max-width: 420px;
+margin: 0 auto;
+padding: 18px 16px;
 border-radius: 14px;
-padding: 18px 40px;
-font-size: 1.1rem;
+border: none;
+outline: none;
+font-family: ‘Noto Sans JP’, sans-serif;
+font-size: 1rem;
 font-weight: 700;
+color: white;
+text-align: center;
+-webkit-appearance: none;
+appearance: none;
+transition: transform 0.2s, box-shadow 0.2s, background 0.2s, opacity 0.2s;
+}
+.cta-btn.inactive {
+background: #cbd5e1;
+opacity: 0.65;
+pointer-events: none;
+box-shadow: none;
+}
+.cta-btn.active {
+background: linear-gradient(135deg, #0d9488 0%, #0ea5e9 100%);
+box-shadow: 0 6px 24px rgba(13,148,136,0.35);
+opacity: 1;
+pointer-events: auto;
 cursor: pointer;
-transition: all 0.25s ease;
-box-shadow: 0 6px 24px rgba(13,148,136,0.3);
-letter-spacing: 0.02em;
-position: relative;
-overflow: hidden;
 }
-.cta-btn::before {
-content: ‘’;
-position: absolute;
-inset: 0;
-background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 100%);
-opacity: 0;
-transition: opacity 0.2s;
-}
-.cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(13,148,136,0.4); }
-.cta-btn:hover::before { opacity: 1; }
-.cta-btn:active { transform: translateY(0); }
-.cta-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.cta-btn.active:active { transform: scale(0.98); }
 
-/* Result cards */
+/* Result */
 #result {
 opacity: 0;
 transform: translateY(24px);
 transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
-#result.visible {
-opacity: 1;
-transform: translateY(0);
-}
+#result.visible { opacity: 1; transform: translateY(0); }
 
 .result-card {
 background: white;
@@ -134,109 +126,66 @@ border-radius: 20px;
 border: 1px solid var(–border);
 overflow: hidden;
 box-shadow: 0 4px 24px rgba(15,23,42,0.06);
-transition: box-shadow 0.2s;
 }
-.result-card:hover { box-shadow: 0 8px 40px rgba(15,23,42,0.1); }
-
-.card-header-a {
-background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
-padding: 20px 24px;
-color: white;
-}
-.card-header-b {
-background: linear-gradient(135deg, #0369a1 0%, #0ea5e9 100%);
-padding: 20px 24px;
-color: white;
-}
+.card-header-a { background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%); padding: 20px 24px; color: white; }
+.card-header-b { background: linear-gradient(135deg, #0369a1 0%, #0ea5e9 100%); padding: 20px 24px; color: white; }
 
 .amazon-btn {
-display: inline-flex;
-align-items: center;
-gap: 8px;
-padding: 14px 24px;
-border-radius: 10px;
-font-weight: 700;
-font-size: 0.95rem;
-text-decoration: none;
-transition: all 0.2s ease;
-width: 100%;
-justify-content: center;
+display: flex; align-items: center; justify-content: center; gap: 8px;
+padding: 14px 16px; border-radius: 10px;
+font-family: ‘Noto Sans JP’, sans-serif;
+font-weight: 700; font-size: 0.9rem;
+text-decoration: none; color: white; width: 100%;
+transition: opacity 0.2s;
 }
-.amazon-btn-a {
-background: #0d9488;
-color: white;
-box-shadow: 0 4px 12px rgba(13,148,136,0.25);
-}
-.amazon-btn-a:hover { background: #0f766e; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(13,148,136,0.35); }
-.amazon-btn-b {
-background: #0ea5e9;
-color: white;
-box-shadow: 0 4px 12px rgba(14,165,233,0.25);
-}
-.amazon-btn-b:hover { background: #0284c7; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(14,165,233,0.35); }
+.amazon-btn:active { opacity: 0.8; }
+.amazon-btn-a { background: #0d9488; box-shadow: 0 4px 12px rgba(13,148,136,0.3); }
+.amazon-btn-b { background: #0ea5e9; box-shadow: 0 4px 12px rgba(14,165,233,0.3); }
 
 .x-btn {
-display: inline-flex;
-align-items: center;
-gap: 10px;
-padding: 16px 32px;
-border-radius: 14px;
-font-weight: 700;
-font-size: 1rem;
+display: flex; align-items: center; justify-content: center; gap: 10px;
+padding: 16px 24px; border-radius: 14px;
+font-family: ‘Noto Sans JP’, sans-serif;
+font-weight: 700; font-size: 1rem;
 text-decoration: none;
-background: #0f172a;
-color: white;
-transition: all 0.2s ease;
+background: #0f172a; color: white;
 box-shadow: 0 4px 16px rgba(15,23,42,0.2);
+width: 100%; max-width: 420px; margin: 0 auto;
+transition: opacity 0.2s;
 }
-.x-btn:hover { background: #1e293b; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(15,23,42,0.3); }
+.x-btn:active { opacity: 0.8; }
 
 .badge {
 display: inline-block;
 font-family: ‘Space Mono’, monospace;
-font-size: 0.7rem;
-padding: 3px 10px;
-border-radius: 100px;
-letter-spacing: 0.08em;
-font-weight: 700;
+font-size: 0.7rem; padding: 3px 10px;
+border-radius: 100px; letter-spacing: 0.06em; font-weight: 700;
 }
 
-/* Divider with text */
 .or-divider {
-display: flex;
-align-items: center;
-gap: 12px;
-color: var(–muted);
-font-size: 0.8rem;
+display: flex; align-items: center; gap: 12px;
+color: var(–muted); font-size: 0.8rem;
 font-family: ‘Space Mono’, monospace;
 }
-.or-divider::before, .or-divider::after {
-content: ‘’; flex: 1; height: 1px; background: var(–border);
-}
+.or-divider::before, .or-divider::after { content: ‘’; flex: 1; height: 1px; background: var(–border); }
 
 @keyframes pulse-ring {
 0% { transform: scale(1); opacity: 0.6; }
-100% { transform: scale(1.4); opacity: 0; }
+100% { transform: scale(1.5); opacity: 0; }
 }
 .live-dot {
-width: 8px; height: 8px; background: #22c55e; border-radius: 50%;
-position: relative; display: inline-block;
+width: 8px; height: 8px; background: #22c55e;
+border-radius: 50%; position: relative; display: inline-block; flex-shrink: 0;
 }
 .live-dot::after {
 content: ‘’; position: absolute; inset: -2px;
 border-radius: 50%; background: #22c55e;
 animation: pulse-ring 1.5s infinite;
 }
-
-@media (max-width: 640px) {
-.cta-btn { width: 100%; font-size: 1rem; padding: 16px 24px; }
-}
 </style>
 
 </head>
 <body class="grid-bg">
-
-  <!-- Header -->
 
   <header class="border-b border-gray-200 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
     <div class="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -252,12 +201,9 @@ animation: pulse-ring 1.5s infinite;
     </div>
   </header>
 
-  <!-- Main -->
-
   <main class="max-w-3xl mx-auto px-4 py-10">
 
 ```
-<!-- Hero -->
 <div class="text-center mb-12">
   <div class="inline-block mb-4">
     <span class="badge bg-teal-50 text-teal-700 border border-teal-200">FOR ILLUSTRATORS & 同人作家</span>
@@ -274,91 +220,72 @@ animation: pulse-ring 1.5s infinite;
   </p>
 </div>
 
-<!-- Input section -->
 <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 md:p-8 mb-8">
   <h2 class="font-black text-lg md:text-xl mb-2 leading-tight">
     あなたが今、一番<span class="text-red-500">逃げている</span>（苦手な）作画はどれですか？
   </h2>
   <p class="text-sm text-gray-400 mb-6 mono">Select your weak point →</p>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8" id="categoryGrid">
-  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8" id="categoryGrid"></div>
 
   <div class="text-center">
-    <button class="cta-btn" id="ctaBtn" disabled onclick="showResult()">
-      <span id="ctaBtnEmoji" aria-hidden="true">🔥</span><span id="ctaBtnText"> この苦手を本気で克服する</span>
+    <button class="cta-btn inactive" id="ctaBtn">
+      🔥 この苦手を本気で克服する
     </button>
     <p class="text-xs text-gray-400 mt-3" id="ctaHint">選択すると有効になります</p>
   </div>
 </div>
 
-<!-- Result area -->
 <div id="result" class="hidden">
-
-  <!-- Selected badge -->
   <div class="text-center mb-6">
     <span class="badge bg-orange-50 text-orange-600 border border-orange-200 text-sm px-4 py-2">
       ⚡ 克服ターゲット：<span id="selectedLabel"></span>
     </span>
   </div>
 
-  <!-- Cards grid -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
-
-    <!-- Card A -->
     <div class="result-card">
       <div class="card-header-a">
         <div class="badge bg-white/20 text-white mb-3 border border-white/30">BESTSELLER</div>
         <h3 class="font-black text-xl">👑 王道の神本</h3>
       </div>
       <div class="p-6">
-        <p class="text-sm text-gray-500 leading-relaxed mb-5">
-          まずは基礎を固める。多くの絵描きを救ってきたベストセラーを探す
-        </p>
+        <p class="text-sm text-gray-500 leading-relaxed mb-5">まずは基礎を固める。多くの絵描きを救ってきたベストセラーを探す</p>
         <a id="linkA" href="#" target="_blank" rel="noopener" class="amazon-btn amazon-btn-a">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.196 21.273c-2.246.83-4.687.864-6.953.1C3.91 20.497 1.823 18.73.6 16.49c-1.217-2.242-1.423-4.895-.567-7.29.855-2.393 2.71-4.35 5.074-5.376 1.12-.484 2.312-.72 3.506-.7 1.195.02 2.378.298 3.464.813l-.42.42c-.985-.469-2.068-.72-3.156-.737-1.09-.017-2.178.2-3.18.637-2.06.898-3.69 2.626-4.44 4.78-.75 2.152-.567 4.53.502 6.548 1.07 2.018 2.96 3.58 5.14 4.24 2.18.66 4.42.635 6.47-.07l.203.518zM22.6 17.7c-.13.094-.31.076-.42-.042-1.18-1.34-2.66-1.97-4.67-1.97-1.86 0-3.4.636-4.47 1.834-.1.112-.27.12-.38.018l-.39-.39c-.11-.11-.1-.28.01-.38 1.21-1.33 2.97-2.082 5.04-2.082 2.24 0 3.93.764 5.25 2.266.11.126.1.314-.02.42l-.95.326zM20.3 15.53c-.08.086-.2.094-.29.018-1.15-1.03-2.55-1.54-4.16-1.54-1.5 0-2.87.482-3.95 1.398-.09.076-.22.068-.3-.018l-.32-.32c-.09-.09-.08-.23.01-.31 1.21-1.02 2.77-1.61 4.56-1.61 1.83 0 3.43.584 4.72 1.73.09.08.097.21.017.3l-.28.352z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M13.196 21.273c-2.246.83-4.687.864-6.953.1C3.91 20.497 1.823 18.73.6 16.49c-1.217-2.242-1.423-4.895-.567-7.29.855-2.393 2.71-4.35 5.074-5.376 1.12-.484 2.312-.72 3.506-.7 1.195.02 2.378.298 3.464.813l-.42.42c-.985-.469-2.068-.72-3.156-.737-1.09-.017-2.178.2-3.18.637-2.06.898-3.69 2.626-4.44 4.78-.75 2.152-.567 4.53.502 6.548 1.07 2.018 2.96 3.58 5.14 4.24 2.18.66 4.42.635 6.47-.07l.203.518zM22.6 17.7c-.13.094-.31.076-.42-.042-1.18-1.34-2.66-1.97-4.67-1.97-1.86 0-3.4.636-4.47 1.834-.1.112-.27.12-.38.018l-.39-.39c-.11-.11-.1-.28.01-.38 1.21-1.33 2.97-2.082 5.04-2.082 2.24 0 3.93.764 5.25 2.266.11.126.1.314-.02.42l-.95.326zM20.3 15.53c-.08.086-.2.094-.29.018-1.15-1.03-2.55-1.54-4.16-1.54-1.5 0-2.87.482-3.95 1.398-.09.076-.22.068-.3-.018l-.32-.32c-.09-.09-.08-.23.01-.31 1.21-1.02 2.77-1.61 4.56-1.61 1.83 0 3.43.584 4.72 1.73.09.08.097.21.017.3l-.28.352z"/></svg>
           王道の解説書をAmazonで探す
         </a>
       </div>
     </div>
 
-    <!-- Card B -->
     <div class="result-card">
       <div class="card-header-b">
         <div class="badge bg-white/20 text-white mb-3 border border-white/30">DEEP DIVE</div>
         <h3 class="font-black text-xl">💎 掘り出し物の名著</h3>
       </div>
       <div class="p-6">
-        <p class="text-sm text-gray-500 leading-relaxed mb-5">
-          さらに一歩深く。構造や理論から理解するニッチな専門書を探す
-        </p>
+        <p class="text-sm text-gray-500 leading-relaxed mb-5">さらに一歩深く。構造や理論から理解するニッチな専門書を探す</p>
         <a id="linkB" href="#" target="_blank" rel="noopener" class="amazon-btn amazon-btn-b">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.196 21.273c-2.246.83-4.687.864-6.953.1C3.91 20.497 1.823 18.73.6 16.49c-1.217-2.242-1.423-4.895-.567-7.29.855-2.393 2.71-4.35 5.074-5.376 1.12-.484 2.312-.72 3.506-.7 1.195.02 2.378.298 3.464.813l-.42.42c-.985-.469-2.068-.72-3.156-.737-1.09-.017-2.178.2-3.18.637-2.06.898-3.69 2.626-4.44 4.78-.75 2.152-.567 4.53.502 6.548 1.07 2.018 2.96 3.58 5.14 4.24 2.18.66 4.42.635 6.47-.07l.203.518zM22.6 17.7c-.13.094-.31.076-.42-.042-1.18-1.34-2.66-1.97-4.67-1.97-1.86 0-3.4.636-4.47 1.834-.1.112-.27.12-.38.018l-.39-.39c-.11-.11-.1-.28.01-.38 1.21-1.33 2.97-2.082 5.04-2.082 2.24 0 3.93.764 5.25 2.266.11.126.1.314-.02.42l-.95.326zM20.3 15.53c-.08.086-.2.094-.29.018-1.15-1.03-2.55-1.54-4.16-1.54-1.5 0-2.87.482-3.95 1.398-.09.076-.22.068-.3-.018l-.32-.32c-.09-.09-.08-.23.01-.31 1.21-1.02 2.77-1.61 4.56-1.61 1.83 0 3.43.584 4.72 1.73.09.08.097.21.017.3l-.28.352z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M13.196 21.273c-2.246.83-4.687.864-6.953.1C3.91 20.497 1.823 18.73.6 16.49c-1.217-2.242-1.423-4.895-.567-7.29.855-2.393 2.71-4.35 5.074-5.376 1.12-.484 2.312-.72 3.506-.7 1.195.02 2.378.298 3.464.813l-.42.42c-.985-.469-2.068-.72-3.156-.737-1.09-.017-2.178.2-3.18.637-2.06.898-3.69 2.626-4.44 4.78-.75 2.152-.567 4.53.502 6.548 1.07 2.018 2.96 3.58 5.14 4.24 2.18.66 4.42.635 6.47-.07l.203.518zM22.6 17.7c-.13.094-.31.076-.42-.042-1.18-1.34-2.66-1.97-4.67-1.97-1.86 0-3.4.636-4.47 1.834-.1.112-.27.12-.38.018l-.39-.39c-.11-.11-.1-.28.01-.38 1.21-1.33 2.97-2.082 5.04-2.082 2.24 0 3.93.764 5.25 2.266.11.126.1.314-.02.42l-.95.326zM20.3 15.53c-.08.086-.2.094-.29.018-1.15-1.03-2.55-1.54-4.16-1.54-1.5 0-2.87.482-3.95 1.398-.09.076-.22.068-.3-.018l-.32-.32c-.09-.09-.08-.23.01-.31 1.21-1.02 2.77-1.61 4.56-1.61 1.83 0 3.43.584 4.72 1.73.09.08.097.21.017.3l-.28.352z"/></svg>
           マニアックな専門書をAmazonで探す
         </a>
       </div>
     </div>
-
   </div>
 
-  <!-- Divider -->
   <div class="or-divider mb-6">決意を宣言して退路を断つ</div>
 
-  <!-- X Share -->
-  <div class="text-center mb-4">
+  <div class="text-center mb-2">
     <a id="xShareBtn" href="#" target="_blank" rel="noopener" class="x-btn">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
       退路を断つためにXで決意表明する
     </a>
   </div>
-  <p class="text-center text-xs text-gray-400">投稿文は自動で入力されます</p>
-
+  <p class="text-center text-xs text-gray-400 mt-2">投稿文は自動で入力されます</p>
 </div>
 ```
 
   </main>
-
-  <!-- Footer -->
 
   <footer class="border-t border-gray-100 mt-16 py-8 text-center">
     <p class="text-xs text-gray-400 mono">
@@ -368,72 +295,86 @@ animation: pulse-ring 1.5s infinite;
   </footer>
 
 <script>
-  const ASSOCIATE_ID = 'otaku093-22';
-  const PAGE_URL = encodeURIComponent(location.href);
+  var ASSOCIATE_ID = 'otaku093-22';
+  var PAGE_URL = encodeURIComponent(location.href);
 
-  const categories = [
-    { id: 'hand',       emoji: '✋', label: '手・指（絡みや曲げ）',       kw: '手 指 描き方' },
-    { id: 'wrinkle',    emoji: '👗', label: '服のシワ・質感',             kw: '服 シワ 描き方' },
-    { id: 'face',       emoji: '😮', label: '顔のバランス・アタリ',       kw: '顔 アタリ バランス 描き方' },
-    { id: 'torso',      emoji: '🧍', label: '肩〜骨盤の繋がり（体幹）',   kw: '体幹 肩 骨盤 人体 描き方' },
-    { id: 'foot',       emoji: '👟', label: '足・靴・接地感',             kw: '足 靴 描き方' },
-    { id: 'bg',         emoji: '🏙', label: '背景・パース',               kw: '背景 パース 描き方' },
-    { id: 'color',      emoji: '🎨', label: '着彩・色塗り・影',           kw: '着彩 色塗り 影 描き方' },
-    { id: 'compose',    emoji: '📐', label: '構図・アングル',             kw: '構図 アングル 描き方' },
+  var categories = [
+    { id: 'hand',    emoji: '✋', label: '手・指（絡みや曲げ）',      kw: '手 指 描き方' },
+    { id: 'wrinkle', emoji: '👗', label: '服のシワ・質感',            kw: '服 シワ 描き方' },
+    { id: 'face',    emoji: '😮', label: '顔のバランス・アタリ',      kw: '顔 アタリ バランス 描き方' },
+    { id: 'torso',   emoji: '🧍', label: '肩〜骨盤の繋がり（体幹）',  kw: '体幹 肩 骨盤 人体 描き方' },
+    { id: 'foot',    emoji: '👟', label: '足・靴・接地感',            kw: '足 靴 描き方' },
+    { id: 'bg',      emoji: '🏙', label: '背景・パース',              kw: '背景 パース 描き方' },
+    { id: 'color',   emoji: '🎨', label: '着彩・色塗り・影',          kw: '着彩 色塗り 影 描き方' },
+    { id: 'compose', emoji: '📐', label: '構図・アングル',            kw: '構図 アングル 描き方' }
   ];
 
-  let selected = null;
+  var selected = null;
+  var grid = document.getElementById('categoryGrid');
+  var ctaBtn = document.getElementById('ctaBtn');
 
-  // Build cards
-  const grid = document.getElementById('categoryGrid');
-  categories.forEach(cat => {
-    const card = document.createElement('label');
+  categories.forEach(function(cat) {
+    var card = document.createElement('div');
     card.className = 'category-card';
-    card.innerHTML = `
-      <input type="radio" name="category" value="${cat.id}">
-      <div class="radio-dot"></div>
-      <span class="text-lg">${cat.emoji}</span>
-      <span class="text-sm font-medium">${cat.label}</span>
-    `;
-    card.addEventListener('click', () => {
-      document.querySelectorAll('.category-card').forEach(c => c.classList.remove('selected'));
+
+    var dot = document.createElement('div');
+    dot.className = 'radio-dot';
+    var dotInner = document.createElement('div');
+    dotInner.className = 'radio-dot-inner';
+    dot.appendChild(dotInner);
+
+    var emojiEl = document.createElement('span');
+    emojiEl.className = 'cat-emoji';
+    emojiEl.textContent = cat.emoji;
+
+    var labelEl = document.createElement('span');
+    labelEl.className = 'cat-label';
+    labelEl.textContent = cat.label;
+
+    card.appendChild(dot);
+    card.appendChild(emojiEl);
+    card.appendChild(labelEl);
+
+    card.addEventListener('click', function() {
+      // deselect all
+      var allCards = document.querySelectorAll('.category-card');
+      for (var i = 0; i < allCards.length; i++) {
+        allCards[i].classList.remove('selected');
+      }
       card.classList.add('selected');
       selected = cat;
-      document.getElementById('ctaBtn').disabled = false;
-      document.getElementById('ctaBtnText').textContent = ` 「${cat.label}」を本気で克服する`;
-      document.getElementById('ctaHint').style.visibility = 'hidden';
+
+      // update button
+      ctaBtn.classList.remove('inactive');
+      ctaBtn.classList.add('active');
+      ctaBtn.textContent = '🔥 「' + cat.label + '」を本気で克服する';
+
+      var hint = document.getElementById('ctaHint');
+      if (hint) hint.style.visibility = 'hidden';
     });
+
     grid.appendChild(card);
   });
 
-  function showResult() {
-    if (!selected) return;
-    const cat = selected;
+  ctaBtn.addEventListener('click', function() {
+    if (!selected || ctaBtn.classList.contains('inactive')) return;
 
-    const kwA = encodeURIComponent(cat.kw + ' 本');
-    const kwB = encodeURIComponent(cat.label + ' 解剖学 OR 専門 イラスト');
-    const urlA = `https://www.amazon.co.jp/s?k=${kwA}&tag=${ASSOCIATE_ID}`;
-    const urlB = `https://www.amazon.co.jp/s?k=${kwB}&tag=${ASSOCIATE_ID}`;
+    var kwA = encodeURIComponent(selected.kw + ' 本');
+    var kwB = encodeURIComponent(selected.label + ' 解剖学 OR 専門 イラスト');
+    document.getElementById('linkA').href = 'https://www.amazon.co.jp/s?k=' + kwA + '&tag=' + ASSOCIATE_ID;
+    document.getElementById('linkB').href = 'https://www.amazon.co.jp/s?k=' + kwB + '&tag=' + ASSOCIATE_ID;
+    document.getElementById('selectedLabel').textContent = selected.label;
 
-    document.getElementById('linkA').href = urlA;
-    document.getElementById('linkB').href = urlB;
-    document.getElementById('selectedLabel').textContent = cat.label;
+    var tweetText = encodeURIComponent('私は【' + selected.label + '】を描くことから逃げません！神本で苦手を克服します🔥 #絵描き修行 #苦手克服');
+    document.getElementById('xShareBtn').href = 'https://twitter.com/intent/tweet?text=' + tweetText + '&url=' + PAGE_URL;
 
-    const tweetText = encodeURIComponent(
-      `私は【${cat.label}】を描くことから逃げません！神本で苦手を克服します🔥 #絵描き修行 #苦手克服`
-    );
-    document.getElementById('xShareBtn').href =
-      `https://twitter.com/intent/tweet?text=${tweetText}&url=${PAGE_URL}`;
-
-    const resultEl = document.getElementById('result');
+    var resultEl = document.getElementById('result');
     resultEl.classList.remove('hidden');
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        resultEl.classList.add('visible');
-        resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-  }
+    setTimeout(function() {
+      resultEl.classList.add('visible');
+      resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 20);
+  });
 </script>
 
 </body>
